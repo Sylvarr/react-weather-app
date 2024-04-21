@@ -139,3 +139,18 @@ p {
 .app {
   flex: 1;
 }
+
+@media (max-width: 768px) {
+  .weather-icon {
+    width: 150px;
+    height: 150px;
+  }
+
+  .search-bar {
+    flex-direction: column;
+  }
+
+  .search-button {
+    margin-top: 15px;
+  }
+}

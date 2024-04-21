@@ -1,8 +1,49 @@
-# React + Vite
+# SunSpot Weather App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SunSpot is a React-based weather application that provides current weather information for any city globally. It uses the OpenWeatherMap API to fetch weather data and presents it in a user-friendly interface.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Live search for a city to get current weather information.
+- Displays details like the city name, temperature, weather condition, min/max temperature, and wind speed.
+- Weather conditions are visually represented with icons.
+- Error handling for scenarios where a city is not found.
+
+## Getting Started
+
+To get a local copy up and running, follow these simple steps:
+
+### Prerequisites
+
+- npm: npm install npm@latest -g
+
+### Installation
+
+1. Clone the repo: git clone https://github.com/Sylvarr/react-weather-app.git
+2. Install NPM packages: npm install
+3. Create an `Apikeys.jsx` file in the root directory of your project with your OpenWeather API key:
+
+```javascript
+const apiKey = "YOUR_API_KEY";
+export default apiKey;
+```
+
+### Usage
+
+- Run the application using the command: npm run dev
+
+## Code Structure
+
+- `App.jsx`: The main React component that manages the state and renders child components.
+- `SearchBar.jsx`: A component for the search input field and search functionality.
+- `WeatherDisplay.jsx`: Component to display the weather data.
+- `CityNotFound.jsx`: Component displayed when a city is not found.
+- `Header.jsx`, `Footer.jsx`: Components for the application's header and footer.
+
+## Contributing
+
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+
+## License
+
+Distributed under the MIT License. See LICENSE for more information.
