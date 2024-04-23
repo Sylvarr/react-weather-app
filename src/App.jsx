@@ -37,9 +37,11 @@ function App() {
       setIsCityFound(true);
       setIsWeatherLoading(false);
 
-      const weatherPrompt = `It's ${
+      const weatherPrompt = `Current weather in ${name}: ${
         weather[0].main
-      } in ${name} with a ${main.temp.toFixed()}°C. The wind is ${wind.speed.toFixed()} km/h. Describe the weather in a realistic way and offer a suggestion. Be very short and only stick to what I'm asking of you. Do not ask for suggestions or offer more details. .`;
+      }, temperature ${main.temp.toFixed()}°C, wind speed ${(
+        wind.speed * 3.6
+      ).toFixed()} km/h. Summarize this weather using only one sentence. Immediately follow this with exactly one actionable suggestion based on these conditions. Exclude any additional prompts or offers of further information.`;
 
       fetchCohereResponse(weatherPrompt);
     } catch (error) {
