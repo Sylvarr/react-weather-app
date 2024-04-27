@@ -1,4 +1,5 @@
 import "./App.css";
+import LanguageButtons from "./LanguageButtons.jsx";
 import Header from "./Header.jsx";
 import TimeAndDate from "./TimeAndDate.jsx";
 import SearchBar from "./SearchBar.jsx";
@@ -6,6 +7,8 @@ import WeatherDisplay from "./WeatherDisplay.jsx";
 import CityNotFound from "./CityNotFound.jsx";
 import Footer from "./Footer.jsx";
 import CohereDisplay from "./CohereWeather.jsx";
+import LoadingWeather from "./LoadingWeather.jsx";
+import LoadingSummary from "./LoadingSummary.jsx";
 import { weatherKey, cohereKey } from "./Apikeys.jsx";
 import { useState } from "react";
 
@@ -15,13 +18,19 @@ function App() {
   const [cohereResponse, setCohereResponse] = useState(null);
   const [isWeatherLoading, setIsWeatherLoading] = useState(false);
   const [isCohereLoading, setIsCohereLoading] = useState(false);
+  const [currentLanguage, setCurrentLanguage] = useState("en");
+
+  function languageReset() {
+    setWeatherData(null);
+    setCohereResponse(null);
+  }
 
   const DataFetch = async (cityInput) => {
     setIsWeatherLoading(true);
     setWeatherData(null);
     setCohereResponse(null);
     try {
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${weatherKey}&units=metric`;
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${weatherKey}&units=metric&lang=${currentLanguage}`;
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error("City not found");
@@ -43,7 +52,7 @@ function App() {
         wind.speed * 3.6
       ).toFixed()} km/h. Summarize this weather using only one sentence. Immediately follow this with exactly one actionable suggestion based on these conditions. Exclude any additional prompts or offers of further information.`;
 
-      fetchCohereResponse(weatherPrompt);
+      currentLanguage === "es" ? null : fetchCohereResponse(weatherPrompt);
     } catch (error) {
       console.log(error);
       setIsCityFound(false);
@@ -79,16 +88,22 @@ function App() {
   return (
     <>
       <div className="app">
+        <LanguageButtons
+          setLanguage={setCurrentLanguage}
+          onClick={languageReset}
+        />
         <Header />
-        <TimeAndDate />
-        <SearchBar fetchData={DataFetch} />
-        {isWeatherLoading && <h3>Loading Weather Information...</h3>}
-        <WeatherDisplay weatherData={weatherData} />
-        {!isCityFound && <CityNotFound />}
-        {isCohereLoading && <h3>Loading Summary...</h3>}
-        {cohereResponse && <CohereDisplay response={cohereResponse} />}
+        <TimeAndDate language={currentLanguage} />
+        <SearchBar fetchData={DataFetch} language={currentLanguage} />
+        {isWeatherLoading && <LoadingWeather language={currentLanguage} />}
+        <WeatherDisplay weatherData={weatherData} language={currentLanguage} />
+        {!isCityFound && <CityNotFound language={currentLanguage} />}
+        {isCohereLoading && <LoadingSummary language={currentLanguage} />}
+        {cohereResponse && (
+          <CohereDisplay response={cohereResponse} language={currentLanguage} />
+        )}
       </div>
-      <Footer />
+      <Footer language={currentLanguage} />
     </>
   );
 }

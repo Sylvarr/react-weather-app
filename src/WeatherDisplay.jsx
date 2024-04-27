@@ -1,5 +1,6 @@
 import "./App.css";
-const WeatherDisplay = ({ weatherData }) => {
+import languages from "./languageObject.js";
+const WeatherDisplay = ({ weatherData, language }) => {
   const iconsList = {
     200: "thunderstorm.png",
     201: "thunderstorm.png",
@@ -64,6 +65,8 @@ const WeatherDisplay = ({ weatherData }) => {
     804: "cloudy.png",
   };
 
+  const { weatherFeelsLike, windSpeed } = languages[language];
+
   if (!weatherData) {
     return;
   }
@@ -98,11 +101,12 @@ const WeatherDisplay = ({ weatherData }) => {
           </span>
         </p>
         <p className="weather-minmax">
-          {maxTemp}/{minTemp}, Feels like: {minMax}°C
+          {maxTemp}/{minTemp}, {weatherFeelsLike}: {minMax}°C
         </p>
         <p></p>
         <p className="weather-minmax">
-          {`\uD83D\uDCA8`}Wind Speed: {windSpeedKmH} km/h
+          {`\uD83D\uDCA8`}
+          {windSpeed}: {windSpeedKmH} km/h
         </p>
       </div>
     </div>

@@ -1,17 +1,15 @@
-import moment from "moment";
 import "./App.css";
+import languages from "./languageObject.js";
 
-const currentDay = moment().format("dddd");
+const TimeAndDate = ({ language }) => {
+  const { intro, currentDate } = languages[language];
 
-const currentDate = moment().format("MMMM Do YYYY");
-
-export default function TimeAndDate() {
   return (
     <div id="timeAndDate">
-      <h3>Hello! Today is</h3>
-      <h4>
-        {currentDay}, {currentDate}
-      </h4>
+      <h3>{intro}</h3>
+      <h4>{currentDate}</h4>
     </div>
   );
-}
+};
+
+export default TimeAndDate;

@@ -1,10 +1,14 @@
+import languages from "./languageObject.js";
 import "./App.css";
 const curentYear = new Date().getFullYear();
 
-const Footer = () => {
+const Footer = ({ language }) => {
+  const { footer } = languages[language];
   return (
     <footer className="footer">
-      <p>{curentYear} Weather App</p>
+      <p>
+        {curentYear} {footer}
+      </p>
     </footer>
   );
 };

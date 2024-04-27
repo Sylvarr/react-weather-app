@@ -1,8 +1,10 @@
+import languages from "./languageObject.js";
 import { useState } from "react";
 import "./App.css";
 
-const SearchBar = ({ fetchData }) => {
+const SearchBar = ({ fetchData, language }) => {
   const [cityInput, setCityInput] = useState("");
+  const { searchBarPlaceholder, searchBarButton } = languages[language];
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -17,12 +19,14 @@ const SearchBar = ({ fetchData }) => {
     <form className="search-bar" onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Search for a city"
+        placeholder={searchBarPlaceholder}
         className="search-input"
         value={cityInput}
         onChange={handleInputChange}
       />
-      <button className="search-button">Search</button>
+      <button type="submit" className="search-button">
+        {searchBarButton}
+      </button>
     </form>
   );
 };
