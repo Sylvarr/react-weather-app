@@ -25,6 +25,23 @@ function App() {
     setCohereResponse(null);
   }
 
+  function createWeatherPrompt(language, name, weather, main, wind) {
+    const templates = {
+      en: `Current weather in ${name}: ${
+        weather[0].main
+      }, temperature ${main.temp.toFixed()}°C, wind speed ${(
+        wind.speed * 3.6
+      ).toFixed()} km/h. Summarize this weather using only one sentence. Immediately follow this with exactly one actionable suggestion based on these conditions. Exclude any additional prompts or offers of further information.`,
+      es: `Clima actual en ${name}: ${
+        weather[0].main
+      }, temperatura ${main.temp.toFixed()}°C, velocidad del viento ${(
+        wind.speed * 3.6
+      ).toFixed()} km/h. Resume este clima en una sola frase. Inmediatamente después, proporciona exactamente una sugerencia práctica basada en estas condiciones. Excluye cualquier otro tipo de instrucciones o ofertas de más información.`,
+    };
+
+    return templates[language];
+  }
+
   const DataFetch = async (cityInput) => {
     setIsWeatherLoading(true);
     setWeatherData(null);
@@ -46,13 +63,14 @@ function App() {
       setIsCityFound(true);
       setIsWeatherLoading(false);
 
-      const weatherPrompt = `Current weather in ${name}: ${
-        weather[0].main
-      }, temperature ${main.temp.toFixed()}°C, wind speed ${(
-        wind.speed * 3.6
-      ).toFixed()} km/h. Summarize this weather using only one sentence. Immediately follow this with exactly one actionable suggestion based on these conditions. Exclude any additional prompts or offers of further information.`;
-
-      currentLanguage === "es" ? null : fetchCohereResponse(weatherPrompt);
+      const weatherPrompt = createWeatherPrompt(
+        currentLanguage,
+        name,
+        weather,
+        main,
+        wind
+      );
+      fetchCohereResponse(weatherPrompt);
     } catch (error) {
       console.log(error);
       setIsCityFound(false);
@@ -70,12 +88,16 @@ function App() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${cohereKey}`,
         },
-        body: JSON.stringify({ prompt }),
+        body: JSON.stringify({
+          model: "command-r-plus",
+          prompt: prompt,
+        }),
       });
 
       const cohereResult = await cohereData.json();
       if (cohereResult.error) {
-        throw new Error("Failed to generate response from Cohere");
+        console.log("Cohere API Error:", cohereResult.error);
+        throw new Error("Failed to generate text from Cohere");
       }
 
       setCohereResponse(cohereResult);
