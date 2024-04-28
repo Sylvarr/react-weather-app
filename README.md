@@ -9,6 +9,7 @@ SunSpot is a React-based weather application that provides current weather infor
 - Weather conditions are visually represented with icons.
 - Error handling for scenarios where a city is not found.
 - AI summary of current weather.
+- Comes in English and Spanish.
 
 ## Getting Started
 
