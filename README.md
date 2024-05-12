@@ -23,7 +23,7 @@ To get a local copy up and running, follow these simple steps:
 
 1. Clone the repo: git clone https://github.com/Sylvarr/react-weather-app.git
 2. Install NPM packages: npm install
-3. Create an `Apikeys.jsx` file in the root directory of your project with your OpenWeather and Cohere API keys:
+3. Create an `apikeys.js` file in the root directory of your project with your OpenWeather and Cohere API keys:
 
 ```javascript
 const weatherKey = "YOUR_API_KEY";

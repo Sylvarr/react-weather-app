@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 #APIKEYS
-src/Apikeys.jsx
+src/apikeys.js

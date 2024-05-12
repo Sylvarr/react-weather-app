@@ -9,7 +9,7 @@ import Footer from "./Footer.jsx";
 import CohereDisplay from "./CohereWeather.jsx";
 import LoadingWeather from "./LoadingWeather.jsx";
 import LoadingSummary from "./LoadingSummary.jsx";
-import { weatherKey, cohereKey } from "./Apikeys.jsx";
+import { weatherKey, cohereKey } from "./apikeys.js";
 import { useState } from "react";
 
 function App() {
