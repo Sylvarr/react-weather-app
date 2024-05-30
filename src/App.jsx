@@ -10,7 +10,7 @@ import CohereDisplay from "./CohereWeather.jsx";
 import LoadingWeather from "./LoadingWeather.jsx";
 import LoadingSummary from "./LoadingSummary.jsx";
 import { weatherKey, cohereKey } from "./apikeys.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
@@ -19,6 +19,10 @@ function App() {
   const [isWeatherLoading, setIsWeatherLoading] = useState(false);
   const [isCohereLoading, setIsCohereLoading] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState("en");
+
+  useEffect(() => {
+    languageReset();
+  }, [currentLanguage]);
 
   function languageReset() {
     setWeatherData(null);
@@ -110,10 +114,7 @@ function App() {
   return (
     <>
       <div className="app">
-        <LanguageButtons
-          setLanguage={setCurrentLanguage}
-          onClick={languageReset}
-        />
+        <LanguageButtons setLanguage={setCurrentLanguage} />
         <Header />
         <TimeAndDate language={currentLanguage} />
         <SearchBar fetchData={DataFetch} language={currentLanguage} />

@@ -1,13 +1,12 @@
 import "./App.css";
 
-export default function LanguageButtons({ setLanguage, onClick }) {
+export default function LanguageButtons({ setLanguage }) {
   return (
     <div className="language-buttons">
       <button
         className="language-button"
         onClick={() => {
           setLanguage("en");
-          onClick();
         }}
       >
         English
@@ -16,7 +15,6 @@ export default function LanguageButtons({ setLanguage, onClick }) {
         className="language-button"
         onClick={() => {
           setLanguage("es");
-          onClick();
         }}
       >
         Español
